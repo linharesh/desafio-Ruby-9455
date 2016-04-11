@@ -9,7 +9,7 @@ class AlunosManager
 	def pode_criar_uffmail? (matricula)
 		# variável al recebe o aluno com a matrícula buscada
 		al = @alunos.find{ |a| a.matricula == matricula }
-		if !(al.nil?) && al.status == "Ativo" && !(al.uffmail.include? "@id.uff.br")
+		if !(al.nil?) && al.estaAtivo && !(al.uffmail.include? "@id.uff.br")
 			return true
 		else
 			return false
@@ -36,6 +36,15 @@ class AlunosManager
  				puts "A criação de seu e-mail (#{uffmail}) será feita nos próximos minutos."
  			end
 		 }
+	end
+
+	def busca_aluno (matricula)
+		@alunos.each{ |al|
+			if al.matricula == matricula
+				return al
+			end
+		}
+		return nil
 	end
 
 end

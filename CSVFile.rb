@@ -14,7 +14,13 @@ class CSVFile
 		
 		while (line = file.gets)
 			splittedline = line.split(/,/)
-			al = Aluno.new(splittedline[0], splittedline[1], splittedline[2], splittedline[3], splittedline[4], splittedline[5])
+			splittedline[5] = splittedline[5].downcase
+			if splittedline[5].include? 'inativo' 
+				estaAtivo = false  
+			else
+				estaAtivo = true
+			end
+			al = Aluno.new(splittedline[0], splittedline[1], splittedline[2], splittedline[3], splittedline[4], estaAtivo)
 			alunos.push(al)
 		end
 		file.close
@@ -28,9 +34,11 @@ class CSVFile
 
 		#escrevendo a linha de cabeçalho
 		line = file.puts "nome,matricula,telefone,email,uffmail,status" 
-		
 
-
+		AlunosManager.instance.alunos.each{ |al|
+			file.puts al.to_csv
+		}
+		file.close
 	end
 
 end

@@ -1,22 +1,24 @@
 class Aluno
  
-	attr_accessor :nome, :matricula, :telefone, :email, :uffmail, :status
+	attr_accessor :nome, :matricula, :telefone, :email, :uffmail, :estaAtivo
 
-	def initialize(nome, matricula, telefone, email, uffmail, status)
+	def initialize(nome, matricula, telefone, email, uffmail, estaAtivo)
 		@nome = nome
 		@matricula = matricula
 		@telefone = telefone
 		@email = email
 		@uffmail = uffmail
-		@status = status
+		@estaAtivo = estaAtivo
 	end
 
 	def to_s
-		return "Nome : #{@nome} , Matricula: #{@matricula} , Telefone: #{@telefone} , Email: #{@email} , Uffmail: #{@uffmail} , Status: #{@status}"
+		@estaAtivo ? status = "Ativo" : status = "Inativo"
+		return "Nome : #{@nome} , Matricula: #{@matricula} , Telefone: #{@telefone} , Email: #{@email} , Uffmail: #{@uffmail} , Status: #{status}"
 	end
 
 	def to_csv
-		return "#{@nome},#{@matricula},#{@telefone},#{@email},#{@uffmail},#{@status}"
+		@estaAtivo ? status = "Ativo" : status = "Inativo"
+		return "#{@nome},#{@matricula},#{@telefone},#{@email},#{@uffmail},#{status}"
 	end
 
 end
