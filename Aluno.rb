@@ -12,12 +12,12 @@ class Aluno
 	end
 
 	def to_s
-		@estaAtivo ? status = "Ativo" : status = "Inativo"
+		@estaAtivo ? status = 'Ativo' : status = 'Inativo'
 		return "Nome : #{@nome} , Matricula: #{@matricula} , Telefone: #{@telefone} , Email: #{@email} , Uffmail: #{@uffmail} , Status: #{status}"
 	end
 
 	def to_csv
-		@estaAtivo ? status = "Ativo" : status = "Inativo"
+		@estaAtivo ? status = 'Ativo' : status = 'Inativo'
 		return "#{@nome},#{@matricula},#{@telefone},#{@email},#{@uffmail},#{status}"
 	end
 

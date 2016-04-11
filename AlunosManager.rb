@@ -2,18 +2,14 @@ require './Aluno.rb'
 require 'singleton'
 
 class AlunosManager
+
 	include Singleton
 
 	attr_accessor :alunos
 
 	def pode_criar_uffmail? (matricula)
-		# variável al recebe o aluno com a matrícula buscada
-		al = @alunos.find{ |a| a.matricula == matricula }
-		if !(al.nil?) && al.estaAtivo && !(al.uffmail.include? "@id.uff.br")
-			return true
-		else
-			return false
-		end
+		al = @alunos.find{ |a| a.matricula == matricula } # variável al recebe o aluno com a matrícula buscada
+		return !(al.nil?) && al.estaAtivo && !(al.uffmail.include? '@id.uff.br') 
 	end
 
 	def gerar_opcoes_de_uffmail(matricula)
@@ -29,20 +25,15 @@ class AlunosManager
 		return opcoes
 	end
 
-	def adicionarUffMail(matricula , uffmail)
+	def adicionar_uffmail(matricula , uffmail)
 		@alunos.each_index { |index| 
- 			if (@alunos[index].matricula == matricula)
- 				@alunos[index].uffmail = uffmail
- 				puts "A criação de seu e-mail (#{uffmail}) será feita nos próximos minutos."
- 			end
+ 			@alunos[index].uffmail = uffmail if @alunos[index].matricula == matricula
 		 }
 	end
 
 	def busca_aluno (matricula)
 		@alunos.each{ |al|
-			if al.matricula == matricula
-				return al
-			end
+			return al if al.matricula == matricula
 		}
 		return nil
 	end

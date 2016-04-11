@@ -21,29 +21,29 @@
 					self.imprimir_todos_os_alunos
 				when 'salvar'
 					csvFile = CSVFile.new
-					csvFile.salva_alunos "alunos.csv"
+					csvFile.salva_alunos 'alunos.csv'
+					puts 'Informações gravadas com sucesso!'
 				else
-					if resp.include? "buscar"
+					if resp.include? 'buscar'
 						strsplit = resp.split(/ /)
 						matricula = strsplit.last
 						puts "buscando #{matricula}"
 						aluno = AlunosManager.instance.busca_aluno (matricula)
-						if aluno.nil?
-							puts "Aluno não encontrado"
+						if aluno.nil? # não consegui transformar esse IF em um operador ternário de FORMA ALGUMA :(
+							puts 'Aluno não encontrado'
 						else
 							puts aluno.to_s
 						end
 					else
 						if (AlunosManager.instance.pode_criar_uffmail?(resp))
 							opcoes = AlunosManager.instance.gerar_opcoes_de_uffmail(resp)
-							puts "Escolha uma das opções de UFFMAIL"
-							opcoes.length.times { |opcao|
-								puts "#{opcao + 1} - #{opcoes[opcao]} "
-							}
+							puts 'Escolha uma das opções de UFFMAIL'
+							opcoes.length.times { |opcao| puts "#{opcao + 1} - #{opcoes[opcao]} " }
 							escolha = gets.chomp.to_i - 1
-							AlunosManager.instance.adicionarUffMail(resp , opcoes[escolha])
+							puts "A criação de seu e-mail (#{opcoes[escolha]}) será feita nos próximos minutos."
+							AlunosManager.instance.adicionar_uffmail(resp , opcoes[escolha])
 						else
-							puts "Este aluno não pode criar um uffmail"
+							puts 'Este aluno não pode criar um uffmail'
 						end
 					end
 				end
@@ -54,11 +54,9 @@
 
 
 			def imprimir_todos_os_alunos
-				puts " - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
-				AlunosManager.instance.alunos.each { |aluno|
-					puts aluno.to_s
-				}
-				puts " - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -"
+				puts ' - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -'
+				AlunosManager.instance.alunos.each { |aluno| puts aluno.to_s}
+				puts ' - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -'
 			end
 
 
