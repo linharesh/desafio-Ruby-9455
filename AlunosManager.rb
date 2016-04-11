@@ -1,5 +1,6 @@
 require './Aluno.rb'
 require 'singleton'
+require './EmailGenerator.rb'
 
 class AlunosManager
 
@@ -14,15 +15,8 @@ class AlunosManager
 
 	def gerar_opcoes_de_uffmail(matricula)
 		al = @alunos.find{ |a| a.matricula == matricula }
-		opcoes = []
-		nome = al.nome.split(/ /)
-		random = rand(999).to_s
-		opcoes << "#{nome.first.downcase}_#{nome.last.downcase}_#{random}@id.uff.br" 
-		random = rand(999).to_s
-		opcoes << "#{nome.last.downcase}_#{nome.first.downcase}_#{random}@id.uff.br"
-		random = rand(999).to_s
-		opcoes << "#{random}_#{nome.last.downcase}_#{nome.first.downcase}@id.uff.br"
-		return opcoes
+		emailGenerator = EmailGenerator.new
+		return emailGenerator.gerar_email(al.nome)
 	end
 
 	def adicionar_uffmail(matricula , uffmail)
